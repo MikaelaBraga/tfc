@@ -1,5 +1,9 @@
 import * as express from 'express';
 import * as cors from 'cors';
+import serverError from './middlewares/errors/serverError';
+import domainError from './middlewares/errors/domainError';
+import joiError from './middlewares/errors/joiError';
+import routeLogin from './controllers/loginController';
 
 class App {
   public app: express.Express;
@@ -8,6 +12,7 @@ class App {
     this.app = express();
     this.config();
     this.routes();
+    this.errors();
     this.app.use(cors());
   }
 
@@ -26,6 +31,13 @@ class App {
     this.app.get('/', (req, res, _next) => {
       res.status(200).json({ message: 'Ok!' });
     });
+    this.app.use('/login', routeLogin);
+  }
+
+  private errors() {
+    this.app.use(joiError);
+    this.app.use(domainError);
+    this.app.use(serverError);
   }
 
   // ...

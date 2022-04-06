@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
 
-class UsersModel extends Model {
+class Users extends Model {
   declare id: number;
 
   declare username: string;
@@ -13,7 +13,7 @@ class UsersModel extends Model {
   declare password: string;
 }
 
-UsersModel.init(
+Users.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -40,7 +40,9 @@ UsersModel.init(
   {
     underscored: true,
     sequelize: db,
-    modelName: 'UsersModel',
+    modelName: 'Users',
     timestamps: false,
   },
 );
+
+export default Users;
