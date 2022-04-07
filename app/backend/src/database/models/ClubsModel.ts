@@ -1,13 +1,13 @@
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
 
-class ClubsModel extends Model {
+class Clubs extends Model {
   declare id: number;
 
   declare clubName: string;
 }
 
-ClubsModel.init(
+Clubs.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -33,4 +33,4 @@ ClubsModel.init(
 //    });
 // }
 
-export default ClubsModel;
+export default Clubs;
