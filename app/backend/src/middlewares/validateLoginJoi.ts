@@ -11,6 +11,7 @@ const loginSchema = Joi.object({
     'any.required': 'All fields must be filled',
     'string.min': 'Incorrect email or password',
     'string.empty': 'All fields must be filled',
+    'string.base': 'Incorrect email or password', // refatorar
   }),
 });
 

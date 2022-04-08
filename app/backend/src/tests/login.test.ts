@@ -13,7 +13,7 @@ describe('teste da rota de /login', () => {
   let chaiHttpResponse: Response;
 
   describe('/login em caso de sucesso', () => {
-    it('retorna status 200', async () => {
+    it('retorna status "200"', async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send({ email: 'admin@admin.com', password: 'secret_admin' });
 
       expect(chaiHttpResponse.status).to.be.equal(200);
@@ -59,5 +59,47 @@ describe('teste da rota de /login', () => {
     });
   });
 
+  describe('/login em caso de erro', () => {
+    it('com email inválido: retorna status "401"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({ email: 'admin@adm', password: 'secret_admin' });
+
+      expect(chaiHttpResponse.status).to.be.equal(401);
+    });
+
+    it('com email inválido: retorna mensagem "Incorrect email or password"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({ email: 'admin@adm', password: 'secret_admin' });
+      const { message } = chaiHttpResponse.body;
+
+      expect(message).to.be.equal('Incorrect email or password');
+    });
+
+    it('sem informar email: retorna mensagem "All fields must be filled" e status "401"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({ email: '', password: 'secret_admin' });
+      const { message } = chaiHttpResponse.body;
+
+      expect(message).to.be.equal('All fields must be filled');
+    });
+
+    it('com senha inválida: retorna status "401"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({ email: 'admin@admin.com', password: 123456 }); // refatorar
+
+      expect(chaiHttpResponse.status).to.be.equal(401);
+    });
+
+    it('com senha inválida: retorna mensagem "Incorrect email or password"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({ email: 'admin@admin.com', password: 123456 }); // refatorar
+      const { message } = chaiHttpResponse.body;
+
+      expect(message).to.be.equal('Incorrect email or password');
+    });
+
+    it('sem informar senha: retorna mensagem "All fields must be filled" e status "401"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({ email: 'admin@admin.com', password: '' });
+      const { message } = chaiHttpResponse.body;
+
+      expect(message).to.be.equal('All fields must be filled');
+    });
+
+  });
 
 });
