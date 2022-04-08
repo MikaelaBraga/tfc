@@ -10,7 +10,8 @@ const login = async (email: string) => {
     throw errorConstructor('unauthorized', 'Incorrect email or password');
   }
 
-  const toke = generateToken({ email });
+  const { role } = users;
+  const toke = generateToken({ email, role });
 
   return { user: users, token: toke };
 };

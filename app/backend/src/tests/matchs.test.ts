@@ -3,7 +3,7 @@ import { expect } from 'chai';
 // import chaiHttp from 'chai-http';
 import Matchs from '../database/models/MatchsModel';
 
-describe('testa camada model de usuário', () => {
+describe('testa camada model de matchs', () => {
   it('verifica se Matchs Model é uma classe', () => {
     const objMatch: Matchs = new Matchs();
 
