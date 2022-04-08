@@ -10,6 +10,8 @@ const login = async (email: string) => {
     throw errorConstructor('unauthorized', 'Incorrect email or password');
   }
 
+  // implementar validação de senha do usuário
+
   const { role } = users;
   const toke = generateToken({ email, role });
 
