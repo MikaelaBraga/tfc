@@ -10,7 +10,7 @@ routeLogin.post('/', async (req: Request, res: Response, next: NextFunction) => 
   try {
     const { email, password } = req.body as ILogin;
     validateLoginJoi({ email, password });
-    const user = await login(email, password);
+    const user = await login(email);
 
     return res.status(200).json(user);
   } catch (err) {
