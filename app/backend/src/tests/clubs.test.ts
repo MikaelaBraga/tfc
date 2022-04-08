@@ -1,4 +1,3 @@
-// import * as sinon from 'sinon';
 import * as chai from 'chai';
 import { expect } from 'chai';
 import Clubs from '../database/models/ClubsModel';
@@ -63,6 +62,7 @@ describe('testa rota /clubs', () => {
     it('o objeto possui as proriedades "id" e "clubName"', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/1');
   
+      expect(chaiHttpResponse.body).to.be.an('object');
       expect(chaiHttpResponse.body).to.have.property('id');
       expect(chaiHttpResponse.body).to.have.property('clubName');
     });
