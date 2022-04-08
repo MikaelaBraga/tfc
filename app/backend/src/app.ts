@@ -5,6 +5,7 @@ import domainError from './middlewares/errors/domainError';
 import joiError from './middlewares/errors/joiError';
 import routeLogin from './controllers/loginController';
 import routeClubs from './controllers/clubsController';
+import routeMatchs from './controllers/matchsController';
 
 class App {
   public app: express.Express;
@@ -34,6 +35,7 @@ class App {
     });
     this.app.use('/login', routeLogin);
     this.app.use('/clubs', routeClubs);
+    this.app.use('/matchs', routeMatchs);
   }
 
   private errors() {
