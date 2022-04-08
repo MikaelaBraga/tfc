@@ -1,18 +1,19 @@
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
+import Clubs from './ClubsModel';
 
 class Matchs extends Model {
   declare id: number;
 
   declare homeTeam: number;
 
-  declare homeTeamsGoals: number;
+  declare homeTeamGoals: number;
 
   declare awayTeam: number;
 
   declare awayTeamGoals: number;
 
-  declare inProgress: number;
+  declare inProgress: boolean;
 }
 
 Matchs.init(
@@ -39,7 +40,7 @@ Matchs.init(
       allowNull: false,
     },
     inProgress: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },
@@ -50,5 +51,15 @@ Matchs.init(
     timestamps: false,
   },
 );
+
+// uma partida pertence a um clube da casa
+Matchs.belongsTo(Clubs, { foreignKey: 'homeTeam', as: 'homeClub' });
+// uma partida pertence a um clube visitante
+Matchs.belongsTo(Clubs, { foreignKey: 'awayTeam', as: 'awayClub' });
+
+// um clube pode ter muitas partidas em casa
+Clubs.hasMany(Matchs, { foreignKey: 'homeTeam', as: 'match' });
+// um clube pode ter muitas partidas fora de casa
+Clubs.hasMany(Matchs, { foreignKey: 'awayTeam', as: 'matchs' });
 
 export default Matchs;
