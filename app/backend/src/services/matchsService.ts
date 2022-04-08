@@ -19,4 +19,10 @@ const getMatchsInProgress = async (inProgress: string): Promise<IMatchs[]> => {
   return matchs;
 };
 
-export { listMatchs, getMatchsInProgress };
+const createMatchs = async (match: object): Promise<IMatchs> => {
+  const create = await Matchs.create(match);
+
+  return create;
+};
+
+export { listMatchs, getMatchsInProgress, createMatchs };

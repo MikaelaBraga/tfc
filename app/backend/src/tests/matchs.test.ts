@@ -29,7 +29,7 @@ describe('testa camada model de matchs', () => {
   });
 });
 
-describe('', () => {
+describe('testa rota /matchs', () => {
   let chaiHttpResponse: Response;
   it('retorna status 200', async () => {
     chaiHttpResponse = await chai.request(app).get('/matchs');
