@@ -4,6 +4,7 @@ import serverError from './middlewares/errors/serverError';
 import domainError from './middlewares/errors/domainError';
 import joiError from './middlewares/errors/joiError';
 import routeLogin from './controllers/loginController';
+import routeClubs from './controllers/clubsController';
 
 class App {
   public app: express.Express;
@@ -32,6 +33,7 @@ class App {
       res.status(200).json({ message: 'Ok!' });
     });
     this.app.use('/login', routeLogin);
+    this.app.use('/clubs', routeClubs);
   }
 
   private errors() {
