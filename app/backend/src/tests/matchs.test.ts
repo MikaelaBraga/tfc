@@ -15,10 +15,10 @@ describe('testa camada model de matchs', () => {
 
     expect(objMatch).to.be.an('object');
     expect(objMatch).to.have.property('id');
-    expect(objMatch).to.have.property('home_team');
-    expect(objMatch).to.have.property('home_team_goals');
-    expect(objMatch).to.have.property('away_team');
-    expect(objMatch).to.have.property('away_team_goals');
-    expect(objMatch).to.have.property('in_progress');
+    expect(objMatch).to.have.property('homeTeam');
+    expect(objMatch).to.have.property('homeTeamGoals');
+    expect(objMatch).to.have.property('awayTeam');
+    expect(objMatch).to.have.property('awayTeamGoals');
+    expect(objMatch).to.have.property('inProgress');
   });
 });

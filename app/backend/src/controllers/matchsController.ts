@@ -23,17 +23,4 @@ routeMatchs.get('/', async (req: Request, res: Response, next: NextFunction) => 
   }
 });
 
-// routeMatchs.get('/', async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const { inProgress } = req.query;
-//     console.log(inProgress);
-
-//     const matchs = await getMatchsInProgress(inProgress);
-
-//     return res.status(200).json(matchs);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 export default routeMatchs;
