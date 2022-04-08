@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import listMatchs from '../services/matchsService';
+import { listMatchs } from '../services/matchsService';
 
 const routeMatchs = Router();
 

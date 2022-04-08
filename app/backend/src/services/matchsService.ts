@@ -10,4 +10,13 @@ const listMatchs = async (): Promise<IMatchs[]> => {
   return matchs;
 };
 
-export default listMatchs;
+const getMatchInProgressTrue = async (): Promise<IMatchs[]> => {
+  const matchs = await Matchs.findAll({
+    where: { inProgress: true },
+    include: [{ model: Clubs, as: 'homeClub', attributes: ['clubName'] },
+      { model: Clubs, as: 'awayClub', attributes: ['clubName'] }] });
+
+  return matchs;
+};
+
+export { listMatchs, getMatchInProgressTrue };
