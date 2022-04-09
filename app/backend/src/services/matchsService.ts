@@ -2,6 +2,7 @@ import errorConstructor from '../utils/errorConstructor';
 import { IMatchs } from '../interfaces/IMatchs';
 import Matchs from '../database/models/MatchsModel';
 import Clubs from '../database/models/ClubsModel';
+import { getClubsById } from './clubsService';
 
 const listMatchs = async (): Promise<IMatchs[]> => {
   const matchs = await Matchs.findAll({ include:
@@ -23,6 +24,8 @@ const getMatchsInProgress = async (inProgress: string): Promise<IMatchs[]> => {
 const createMatchs = async (match: IMatchs): Promise<IMatchs> => {
   const matchCreate = await Matchs.create(match);
   const { homeTeam, awayTeam } = match;
+  await getClubsById(`${homeTeam}`);
+  await getClubsById(`${awayTeam}`);
 
   if (homeTeam === awayTeam) {
     throw errorConstructor(
