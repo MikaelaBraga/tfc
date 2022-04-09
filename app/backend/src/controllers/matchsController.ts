@@ -5,6 +5,7 @@ import {
   finishMatchs,
   getMatchsInProgress,
   listMatchs,
+  updateMatchs,
 } from '../services/matchsService';
 
 const routeMatchs = Router();
@@ -43,6 +44,18 @@ routeMatchs.patch('/:id/finish', async (req: Request, res: Response, next: NextF
   try {
     const { id } = req.params;
     const match = await finishMatchs(id);
+
+    return res.status(200).json(match);
+  } catch (error) {
+    next(error);
+  }
+});
+
+routeMatchs.patch('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const { id } = req.params;
+    const match = await updateMatchs(id, homeTeamGoals, awayTeamGoals);
 
     return res.status(200).json(match);
   } catch (error) {

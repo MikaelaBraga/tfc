@@ -44,4 +44,18 @@ const finishMatchs = async (id: string): Promise<IMatchs | null> => {
   return match;
 };
 
-export { listMatchs, getMatchsInProgress, createMatchs, finishMatchs };
+const updateMatchs = async (
+  id:string,
+  homeTeamGoals:number,
+  awayTeamGoals:number,
+): Promise<unknown> => {
+  await Matchs.update(
+    { homeTeamGoals, awayTeamGoals },
+    { where: { id } },
+  );
+  const match = await Matchs.findByPk(id);
+
+  return match;
+};
+
+export { listMatchs, getMatchsInProgress, createMatchs, finishMatchs, updateMatchs };
