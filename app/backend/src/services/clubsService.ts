@@ -12,7 +12,7 @@ const getClubsById = async (id: string): Promise<IClubs | null> => {
   const club = await Clubs.findByPk(id);
 
   if (!club) {
-    throw errorConstructor('unauthorized', 'There is no team with such id');
+    throw errorConstructor('unauthorized', 'There is no team with such id!');
   }
 
   return club;

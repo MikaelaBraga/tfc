@@ -2,7 +2,6 @@ import errorConstructor from '../utils/errorConstructor';
 import { IMatchs } from '../interfaces/IMatchs';
 import Matchs from '../database/models/MatchsModel';
 import Clubs from '../database/models/ClubsModel';
-import { getClubsById } from './clubsService';
 
 const listMatchs = async (): Promise<IMatchs[]> => {
   const matchs = await Matchs.findAll({ include:
@@ -24,8 +23,13 @@ const getMatchsInProgress = async (inProgress: string): Promise<IMatchs[]> => {
 const createMatchs = async (match: IMatchs): Promise<IMatchs> => {
   const matchCreate = await Matchs.create(match);
   const { homeTeam, awayTeam } = match;
-  await getClubsById(`${homeTeam}`);
-  await getClubsById(`${awayTeam}`);
+
+  const homeTeamClubs = await Clubs.findByPk(homeTeam);
+  const awayTeamClubs = await Clubs.findByPk(awayTeam);
+
+  if (!homeTeamClubs || !awayTeamClubs) {
+    throw errorConstructor('unauthorized', 'There is no team with such id!');
+  }
 
   if (homeTeam === awayTeam) {
     throw errorConstructor(
@@ -44,11 +48,11 @@ const finishMatchs = async (id: string): Promise<IMatchs | null> => {
   return match;
 };
 
-const updateMatchs = async (
+const updateGoalsMatchs = async (
   id:string,
   homeTeamGoals:number,
   awayTeamGoals:number,
-): Promise<unknown> => {
+): Promise<IMatchs | null> => {
   await Matchs.update(
     { homeTeamGoals, awayTeamGoals },
     { where: { id } },
@@ -58,4 +62,4 @@ const updateMatchs = async (
   return match;
 };
 
-export { listMatchs, getMatchsInProgress, createMatchs, finishMatchs, updateMatchs };
+export { listMatchs, getMatchsInProgress, createMatchs, finishMatchs, updateGoalsMatchs };
