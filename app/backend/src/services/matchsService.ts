@@ -1,3 +1,4 @@
+import errorConstructor from '../utils/errorConstructor';
 import { IMatchs } from '../interfaces/IMatchs';
 import Matchs from '../database/models/MatchsModel';
 import Clubs from '../database/models/ClubsModel';
@@ -19,10 +20,18 @@ const getMatchsInProgress = async (inProgress: string): Promise<IMatchs[]> => {
   return matchs;
 };
 
-const createMatchs = async (match: object): Promise<IMatchs> => {
-  const create = await Matchs.create(match);
+const createMatchs = async (match: IMatchs): Promise<IMatchs> => {
+  const matchCreate = await Matchs.create(match);
+  const { homeTeam, awayTeam } = match;
 
-  return create;
+  if (homeTeam === awayTeam) {
+    throw errorConstructor(
+      'unauthorized',
+      'It is not possible to create a match with two equal teams',
+    );
+  }
+
+  return matchCreate;
 };
 
 const finishMatchs = async (id: string): Promise<IMatchs | null> => {
