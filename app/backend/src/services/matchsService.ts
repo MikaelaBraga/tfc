@@ -25,4 +25,11 @@ const createMatchs = async (match: object): Promise<IMatchs> => {
   return create;
 };
 
-export { listMatchs, getMatchsInProgress, createMatchs };
+const finishMatchs = async (id: string): Promise<IMatchs | null> => {
+  await Matchs.update({ inProgress: false }, { where: { id } });
+  const match = await Matchs.findByPk(id);
+
+  return match;
+};
+
+export { listMatchs, getMatchsInProgress, createMatchs, finishMatchs };
