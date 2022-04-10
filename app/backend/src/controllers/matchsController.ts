@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
+import validateMatchsClubs from '../middlewares/validateMatchClubs';
 import authentication from '../middlewares/authentication';
 import {
   createMatchs,
@@ -30,15 +31,22 @@ routeMatchs.get('/', async (req: Request, res: Response, next: NextFunction) => 
   }
 });
 
-routeMatchs.post('/', authentication, async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const createMatch = await createMatchs(req.body);
+routeMatchs.post(
+  '/',
+  authentication,
+  validateMatchsClubs,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
+      const match = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress };
+      const createMatch = await createMatchs(match);
 
-    return res.status(201).json(createMatch);
-  } catch (error) {
-    next(error);
-  }
-});
+      return res.status(201).json(createMatch);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 routeMatchs.patch('/:id/finish', async (req: Request, res: Response, next: NextFunction) => {
   try {
