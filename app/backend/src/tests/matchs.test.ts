@@ -55,4 +55,47 @@ describe('testa rota /matchs', () => {
     expect(chaiHttpResponse.body[0]).to.have.property('homeClub');
     expect(chaiHttpResponse.body[0]).to.have.property('awayClub');
   });
+
+  describe('testa rota /matchs?inProgress=false', () => {
+    it('retorna status 200', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs?inProgress=false');
+  
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  
+    it('retorna um array listando as partidas', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs?inProgress=false');
+  
+      expect(chaiHttpResponse.body).to.be.an('array');
+    });
+
+    it('o array possui partidas com "inProgress: false"', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs?inProgress=false');
+  
+      expect(chaiHttpResponse.body).to.be.an('array');
+      expect(chaiHttpResponse.body[0]).to.have.property('inProgress').to.be.equal(false);
+  });
+});
+
+describe('testa rota /matchs?inProgress=true', () => {
+it('retorna status 200', async () => {
+  chaiHttpResponse = await chai.request(app).get('/matchs?inProgress=true');
+
+  expect(chaiHttpResponse.status).to.be.equal(200);
+});
+
+it('retorna um array listando as partidas', async () => {
+  chaiHttpResponse = await chai.request(app).get('/matchs?inProgress=true');
+
+  expect(chaiHttpResponse.body).to.be.an('array');
+});
+
+it('o array possui partidas com "inProgress: true"', async () => {
+  chaiHttpResponse = await chai.request(app).get('/matchs?inProgress=true');
+
+  expect(chaiHttpResponse.body).to.be.an('array');
+  expect(chaiHttpResponse.body[0]).to.have.property('inProgress').to.be.equal(true);
+});
+});
+
 });
