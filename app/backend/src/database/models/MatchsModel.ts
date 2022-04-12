@@ -58,8 +58,8 @@ Matchs.belongsTo(Clubs, { foreignKey: 'homeTeam', as: 'homeClub' });
 Matchs.belongsTo(Clubs, { foreignKey: 'awayTeam', as: 'awayClub' });
 
 // um clube pode ter muitas partidas em casa
-Clubs.hasMany(Matchs, { foreignKey: 'homeTeam', as: 'match' });
+Clubs.hasMany(Matchs, { foreignKey: 'homeTeam', as: 'homeTeam' });
 // um clube pode ter muitas partidas fora de casa
-Clubs.hasMany(Matchs, { foreignKey: 'awayTeam', as: 'matchs' });
+Clubs.hasMany(Matchs, { foreignKey: 'awayTeam', as: 'awayTeam' });
 
 export default Matchs;

@@ -6,6 +6,7 @@ import joiError from './middlewares/errors/joiError';
 import routeLogin from './controllers/loginController';
 import routeClubs from './controllers/clubsController';
 import routeMatchs from './controllers/matchsController';
+import routeLeaderboard from './controllers/leaderBoardController';
 
 class App {
   public app: express.Express;
@@ -36,6 +37,7 @@ class App {
     this.app.use('/login', routeLogin);
     this.app.use('/clubs', routeClubs);
     this.app.use('/matchs', routeMatchs);
+    this.app.use('/leaderboard', routeLeaderboard);
   }
 
   private errors() {
