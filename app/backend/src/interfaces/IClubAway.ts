@@ -1,4 +1,4 @@
-export interface IClubHome {
+export interface IClubAway {
   id: number,
   clubName: string;
   awayTeam: {
